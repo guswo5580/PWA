@@ -9,9 +9,14 @@ const filesToCache = [
 self.addEventListener('install', e => {
   //waitUntil 내부의 로직이 끝나기 전까지는 계속 실행
   e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      //생성된 캐시 파일안데 캐시 정보 넣기ㅁ
-      cache.addAll(filesToCache);
-    })
+    caches
+      .open(CACHE_NAME)
+      .then(cache => {
+        //생성된 캐시 파일안데 캐시 정보 삽입
+        return cache.addAll(filesToCache);
+      })
+      .catch(error => {
+        return console.log(error);
+      })
   );
 });
